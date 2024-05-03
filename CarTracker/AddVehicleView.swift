@@ -27,7 +27,7 @@ struct AddVehicleView: View {
                 Image(.botonMas)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 200, height: 200)
+                    .frame(width: 150, height: 150)
                     .onTapGesture {
                         print("add tapped")
                         addVehicleValue = true
