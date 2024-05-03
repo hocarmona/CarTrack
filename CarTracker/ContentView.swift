@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var cars = ["sonic", "mazda", "aveo", "colorado", "versaaa"]
+    @State var cars = ["sonic", "mazda", "aveo", "colorado", "versa", "chevy", "golf", "raptor", "civic", "golf", "raptor", "civiccc"]
 //    @State var cars: [String] = []
 
     @State var addVehicleValue: Bool = false
@@ -19,7 +19,7 @@ struct ContentView: View {
                 LinearGradient(colors: [.white, .accentColor],
                                startPoint: .bottom,
                                endPoint: .top)
-                .if(cars.isEmpty) { $0.ignoresSafeArea() }
+                .ignoresSafeArea()
                 Group {
                     if cars.isEmpty || cars.count == 0 {
                         AddVehicleView(addVehicleValue: $addVehicleValue)
@@ -29,17 +29,6 @@ struct ContentView: View {
                 }
 
             }
-            .toolbar(content: {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("", systemImage: "plus") {
-                        addVehicleValue = true
-                    }
-                }
-            })
-//            .navigationTitle("hola")
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.accentColor)
         }
         .sheet(isPresented: $addVehicleValue, content: {
