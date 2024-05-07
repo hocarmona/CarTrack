@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VehiclesListView: View {
     @Binding var addVehicleValue: Bool
-    @Binding var cars: [String]
+    @Binding var vehicles: Vehicles
     
     var body: some View {
         ScrollViewReader(content: { scrollView in
@@ -40,18 +40,18 @@ struct VehiclesListView: View {
                                   weight: .medium,
                                   design: .rounded))
                 List {
-                    ForEach(cars.indices, id: \.self) { index in
+                    ForEach(vehicles.myVehicles.indices, id: \.self) { index in
                         ZStack {
                             NavigationLink(value: index) {}
                             .opacity(0)
                             VStack {
-                                Text(cars[index])
+                                Text(vehicles.myVehicles[index].name)
                                     .font(.title)
                                 Rectangle()
                                     .frame(width: .infinity, height: 1, alignment: .center)
                             }
                         }
-                        .id(cars[index])
+//                        .id(vehicles.myVehicles[index])
                         .listRowBackground(Color.clear)
                     }
                     .onDelete(perform: removeCar)
@@ -62,34 +62,40 @@ struct VehiclesListView: View {
                 .listStyle(.plain)
                 Spacer()
             }
-            .onAppear(perform: {
-                withAnimation {
-                    scrollView.scrollTo(cars.last, anchor: .bottom)
-                }
-            })
-            .onChange(of: cars.count, { oldValue, newValue in
-                if oldValue > newValue {
-                    withAnimation {
-                        scrollView.scrollTo(cars.first, anchor: .top)
-                    }
-                } else {
-                    withAnimation {
-                        scrollView.scrollTo(cars.last, anchor: .bottom)
-                    }
-                }
-            })
+//            .onAppear(perform: {
+//                withAnimation {
+//                    scrollView.scrollTo(vehicles.last, anchor: .bottom)
+//                }
+//            })
+//            .onChange(of: vehicles.count, { oldValue, newValue in
+//                if oldValue > newValue {
+//                    withAnimation {
+//                        scrollView.scrollTo(vehicles.first, anchor: .top)
+//                    }
+//                } else {
+//                    withAnimation {
+//                        scrollView.scrollTo(vehicles.last, anchor: .bottom)
+//                    }
+//                }
+//            })
             .navigationDestination(for: Int.self) { i in
-                Text("destination \(i)")
+                let vehicle = vehicles.myVehicles[i]
+                Text("\(vehicle.name)\n \(vehicle.owner)\n\(vehicle.maintenances[0].kilometers)\n\(vehicle.maintenances[0].details)")
             }
         })
     }
     func removeCar(at offsets: IndexSet) {
-        cars.remove(atOffsets: offsets)
+        vehicles.myVehicles.remove(atOffsets: offsets)
+//        vehicles.remove(atOffsets: offsets)
     }
 }
 
 #Preview {
     @State var addVehicleValue: Bool = false
     @State var cars = ["sonic", "mazda", "aveo", "colorado", "versa"]
-    return VehiclesListView(addVehicleValue: $addVehicleValue, cars: $cars)
+    let vehicle =  Vehicle(name: "versa 3", owner: "orlando", maintenances: [Maintenance(kilometers: 3500, date: Date(), details: "agencia")])
+    @State var vehicles = Vehicles()
+    vehicles.myVehicles = [vehicle]
+    return VehiclesListView(addVehicleValue: $addVehicleValue, vehicles: $vehicles)
+
 }
