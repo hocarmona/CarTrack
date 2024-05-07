@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var cars = ["sonic", "mazda", "aveo", "colorado", "versa", "chevy", "golf", "raptor", "civic", "golf", "raptor", "civiccc"]
-//    @State var cars: [String] = []
-
+    @State var vehicles = Vehicles()
     @State var addVehicleValue: Bool = false
     
     var body: some View {
@@ -21,10 +19,10 @@ struct ContentView: View {
                                endPoint: .top)
                 .ignoresSafeArea()
                 Group {
-                    if cars.isEmpty || cars.count == 0 {
-                        AddVehicleView(addVehicleValue: $addVehicleValue)
+                    if vehicles.myVehicles.isEmpty || vehicles.myVehicles.count == 0 {
+                        NoVehiclesView(addVehicleValue: $addVehicleValue)
                     } else {
-                        VehiclesListView(addVehicleValue: $addVehicleValue, cars: $cars)
+                        VehiclesListView(addVehicleValue: $addVehicleValue, vehicles: $vehicles)
                     }
                 }
 
@@ -32,7 +30,9 @@ struct ContentView: View {
             .toolbarBackground(Color.accentColor)
         }
         .sheet(isPresented: $addVehicleValue, content: {
-            Text("add")
+            NavigationView {
+                AddNewVehicleView(vehicles: $vehicles)
+            }
         })
 
     }

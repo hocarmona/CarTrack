@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddVehicleView: View {
+struct NoVehiclesView: View {
     @Binding var addVehicleValue: Bool
     var body: some View {
         VStack(spacing: 90, content: {
@@ -44,5 +44,5 @@ struct AddVehicleView: View {
 
 #Preview {
     @State var addVehicleValue: Bool = false
-    return AddVehicleView(addVehicleValue: $addVehicleValue)
+    return NoVehiclesView(addVehicleValue: $addVehicleValue)
 }
