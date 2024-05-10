@@ -97,17 +97,18 @@ struct AddNewVehicleView: View {
             }
         })
         .navigationTitle("Agregar vehiculo")
-//        .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Guardar") {
                     if carNameTf != "",
                        lastMaintenanceKm != "",
-                        ownerNameTf != "" {
+                        ownerNameTf != "",
+                        lastMaintenancePlace != "" {
                         guard let kilometers = Int(lastMaintenanceKm) else { return }
                         let maintenance = Maintenance(kilometers: kilometers,
                                                       date: lastMaintenanceDate,
-                                                      details: detailsTf)
+                                                      details: detailsTf,
+                                                      place: lastMaintenancePlace)
                         let vehicle = Vehicle(name: carNameTf,
                                               owner: ownerNameTf,
                                               maintenances: [maintenance])

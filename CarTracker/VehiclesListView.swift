@@ -29,7 +29,6 @@ struct VehiclesListView: View {
                         .scaledToFit()
                         .frame(width: 50, height: 50)
                         .onTapGesture {
-                            print("add tapped")
                             addVehicleValue = true
                         }
                 }
@@ -79,21 +78,23 @@ struct VehiclesListView: View {
 //                }
 //            })
             .navigationDestination(for: Int.self) { i in
-                let vehicle = vehicles.myVehicles[i]
-                Text("\(vehicle.name)\n \(vehicle.owner)\n\(vehicle.maintenances[0].kilometers)\n\(vehicle.maintenances[0].details)")
+                VehicleDetailsView(vehicles: $vehicles, index: i)
             }
         })
     }
     func removeCar(at offsets: IndexSet) {
         vehicles.myVehicles.remove(atOffsets: offsets)
-//        vehicles.remove(atOffsets: offsets)
     }
 }
 
 #Preview {
     @State var addVehicleValue: Bool = false
-    @State var cars = ["sonic", "mazda", "aveo", "colorado", "versa"]
-    let vehicle =  Vehicle(name: "versa 3", owner: "orlando", maintenances: [Maintenance(kilometers: 3500, date: Date(), details: "agencia")])
+    let vehicle =  Vehicle(name: "versa 3",
+                           owner: "orlando",
+                           maintenances: [Maintenance(kilometers: 3500,
+                                                      date: Date(),
+                                                      details: "agencia",
+                                                      place: "agencia mazda cuu")])
     @State var vehicles = Vehicles()
     vehicles.myVehicles = [vehicle]
     return VehiclesListView(addVehicleValue: $addVehicleValue, vehicles: $vehicles)
