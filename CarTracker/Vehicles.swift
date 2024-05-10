@@ -34,8 +34,10 @@ struct Vehicle: Codable, Identifiable {
     var maintenances: [Maintenance]
 }
 
-struct Maintenance: Codable {
+struct Maintenance: Codable, Identifiable {
+    var id = UUID()
     var kilometers: Int
     var date: Date
     var details: String
+    var place: String
 }
