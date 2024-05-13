@@ -89,7 +89,7 @@ struct VehicleDetailsView: View {
         }
         .sheet(isPresented: $addMaintenance, content: {
             NavigationView {
-                Text("add maintenance view")
+                AddNewMaintenanceView(index: index, vehicles: $vehicles)
             }
         })
         .navigationDestination(for: String.self) { i in
