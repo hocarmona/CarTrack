@@ -17,6 +17,7 @@ struct VehiclesListView: View {
                 Spacer()
                     .frame(height: 15)
                 Text("Agregar vehiculo")
+                    .foregroundStyle(.black)
                     .font(.system(size: 20,
                                   weight: .medium,
                                   design: .rounded))
@@ -35,6 +36,7 @@ struct VehiclesListView: View {
                 Spacer()
                     .frame(height: 40)
                 Text("Mis vehiculos")
+                    .foregroundStyle(.black)
                     .font(.system(size: 35,
                                   weight: .medium,
                                   design: .rounded))
@@ -46,6 +48,7 @@ struct VehiclesListView: View {
                             VStack(alignment: .leading, content: {
                                 Text(vehicles.myVehicles[index].name)
                                     .font(.title)
+                                    .foregroundStyle(.black)
                                 HStack {
                                     Text(vehicles.myVehicles[index].yearModel.description)
                                         .foregroundStyle(.black.opacity(0.8))
@@ -98,6 +101,7 @@ struct VehiclesListView: View {
                 VehicleDetailsView(vehicles: $vehicles, index: i)
             }
         })
+        .preferredColorScheme(.dark)
     }
     func removeCar(at offsets: IndexSet) {
         vehicles.myVehicles.remove(atOffsets: offsets)
@@ -110,7 +114,7 @@ struct VehiclesListView: View {
     let codableColor = CodableColor(color: Color.gray)
     let vehicle = Vehicle(name: "versa 3",
                           owner: "orlando",
-                          maintenances: [Maintenance(kilometers: 3500,
+                          maintenances: [Maintenance(kilometers: "3500",
                                                      date: Date(),
                                                      details: "agencia",
                                                      place: "agencia mazda cuu")],

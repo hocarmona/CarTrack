@@ -17,6 +17,7 @@
 		6AC785522BE402AC005FCA5D /* VehiclesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC785512BE402AC005FCA5D /* VehiclesListView.swift */; };
 		6AC785542BE43DA3005FCA5D /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC785532BE43DA3005FCA5D /* ViewExtension.swift */; };
 		6ADFB1A02BF2DA1200A493EF /* DetailsConteinerCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADFB19F2BF2DA1200A493EF /* DetailsConteinerCellView.swift */; };
+		6ADFB1A22BF2E71800A493EF /* MaintenanceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADFB1A12BF2E71800A493EF /* MaintenanceDetailView.swift */; };
 		6AEF9EEB2BE14771009BF84B /* CarTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF9EEA2BE14771009BF84B /* CarTrackerApp.swift */; };
 		6AEF9EED2BE14771009BF84B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEF9EEC2BE14771009BF84B /* ContentView.swift */; };
 		6AEF9EEF2BE14773009BF84B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AEF9EEE2BE14773009BF84B /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 		6AC785512BE402AC005FCA5D /* VehiclesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesListView.swift; sourceTree = "<group>"; };
 		6AC785532BE43DA3005FCA5D /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		6ADFB19F2BF2DA1200A493EF /* DetailsConteinerCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsConteinerCellView.swift; sourceTree = "<group>"; };
+		6ADFB1A12BF2E71800A493EF /* MaintenanceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDetailView.swift; sourceTree = "<group>"; };
 		6AEF9EE72BE14771009BF84B /* CarTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AEF9EEA2BE14771009BF84B /* CarTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarTrackerApp.swift; sourceTree = "<group>"; };
 		6AEF9EEC2BE14771009BF84B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				6AC4C7562BEC17AC00EE7F38 /* DetailCellView.swift */,
 				6ADFB19F2BF2DA1200A493EF /* DetailsConteinerCellView.swift */,
 				6AC4C7582BEEC8C500EE7F38 /* AddNewMaintenanceView.swift */,
+				6ADFB1A12BF2E71800A493EF /* MaintenanceDetailView.swift */,
 				6AC785532BE43DA3005FCA5D /* ViewExtension.swift */,
 				6AC4C74C2BE5A07600EE7F38 /* Vehicles.swift */,
 				6AEF9EEE2BE14773009BF84B /* Assets.xcassets */,
@@ -172,6 +175,7 @@
 				6AC4C74D2BE5A07600EE7F38 /* Vehicles.swift in Sources */,
 				6AC4C7532BE5D8DE00EE7F38 /* AddNewVehicleView.swift in Sources */,
 				6AC4C7552BEAE43700EE7F38 /* VehicleDetailsView.swift in Sources */,
+				6ADFB1A22BF2E71800A493EF /* MaintenanceDetailView.swift in Sources */,
 				6AC785542BE43DA3005FCA5D /* ViewExtension.swift in Sources */,
 				6AC4C7512BE5A87D00EE7F38 /* GlobalConstants.swift in Sources */,
 				6AC785502BE401CE005FCA5D /* NoVehiclesView.swift in Sources */,

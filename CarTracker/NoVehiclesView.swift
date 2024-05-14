@@ -39,6 +39,7 @@ struct NoVehiclesView: View {
                                   weight: .medium))
             })
         })
+        .preferredColorScheme(.dark)
     }
 }
 

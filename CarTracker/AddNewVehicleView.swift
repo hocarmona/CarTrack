@@ -130,6 +130,7 @@ struct AddNewVehicleView: View {
                 }
             }
         }
+        .preferredColorScheme(.dark)
     }
 }
 

@@ -39,7 +39,7 @@ struct Vehicle: Codable, Identifiable {
 
 struct Maintenance: Codable, Identifiable {
     var id = UUID()
-    var kilometers: Int
+    var kilometers: String
     var date: Date
     var details: String
     var place: String

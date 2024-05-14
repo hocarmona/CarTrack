@@ -14,6 +14,7 @@ struct DetailsConteinerCellView: View {
     @FocusState private var focusField: Bool
     var body: some View {
         VStack {
+            Spacer()
             HStack(spacing: 20, content: {
                 Text(typeOfDetailText)
                 Spacer()
