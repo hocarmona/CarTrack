@@ -10,10 +10,11 @@ import SwiftUI
 struct VehicleDetailsView: View {
     @Binding var vehicles: Vehicles
     let index: Int
-//    @FocusState private var texFieldFocused: Bool
+    @FocusState private var detailsTextFieldFocused: Bool
     @State var detailTextField: String = ""
     @State var vehicleDisabled: Bool = true
     @State var ownerDisabled: Bool = true
+    @State var detailsDisabled: Bool = true
     @State var addMaintenance: Bool = false
     var body: some View {
         NavigationView {
@@ -25,6 +26,11 @@ struct VehicleDetailsView: View {
                     DetailCellView(typeOfDetailText: GlobalConstants.propertyName,
                                    detailTextField: $vehicles.myVehicles[index].owner,
                                    editingDisabled: $ownerDisabled)
+                    DetailsConteinerCellView(typeOfDetailText: GlobalConstants.details, detailTextField: $vehicles.myVehicles[index].details,
+                                             editingDisabled: $detailsDisabled)
+                    Text("Detalles del vehiculos sujetos a cambios")
+                        .font(.system(size: 12))
+                        .foregroundStyle(.gray)
                 }
                 Section("Mantenimientos") {
                     VStack(spacing: 2) {
@@ -83,9 +89,6 @@ struct VehicleDetailsView: View {
             })
             .navigationTitle("Detalles")
             .navigationBarTitleDisplayMode(.large)
-            .toolbar {
-
-            }
         }
         .sheet(isPresented: $addMaintenance, content: {
             NavigationView {
@@ -102,12 +105,16 @@ struct VehicleDetailsView: View {
 }
 
 #Preview {
-    let vehicle =  Vehicle(name: "versa 3",
-                           owner: "orlando",
-                           maintenances: [Maintenance(kilometers: 3500,
-                                                      date: Date(),
-                                                      details: "agencia",
-                                                      place: "agencia mazda cuu")])
+    let color = Color.blue
+    let codableColor = CodableColor(color: Color.gray)
+    let vehicle = Vehicle(name: "versa 3",
+                          owner: "orlando",
+                          maintenances: [Maintenance(kilometers: 3500,
+                                                     date: Date(),
+                                                     details: "agencia",
+                                                     place: "agencia mazda cuu")],
+                          yearModel: 2023,
+                          details: "OK", color: codableColor)
     @State var vehicles = Vehicles()
     vehicles.myVehicles = [vehicle]
     return VehicleDetailsView(vehicles: $vehicles, index: 0)

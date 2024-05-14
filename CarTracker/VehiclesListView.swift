@@ -43,12 +43,29 @@ struct VehiclesListView: View {
                         ZStack {
                             NavigationLink(value: index) {}
                             .opacity(0)
-                            VStack {
+                            VStack(alignment: .leading, content: {
                                 Text(vehicles.myVehicles[index].name)
                                     .font(.title)
+                                HStack {
+                                    Text(vehicles.myVehicles[index].yearModel.description)
+                                        .foregroundStyle(.black.opacity(0.8))
+                                        .font(.system(size: 20))
+                                        .fontWidth(.condensed)
+                                    Text(" ✦✦  \(vehicles.myVehicles[index].owner)")
+                                        .foregroundStyle(.black.opacity(0.8))
+                                        .font(.system(size: 20))
+                                        .fontWidth(.condensed)
+                                }
+                                Spacer()
+                                    .frame(width: 120)
                                 Rectangle()
-                                    .frame(width: .infinity, height: 1, alignment: .center)
-                            }
+                                    .frame(width: .infinity, height: 2, alignment: .center)
+                                    .foregroundColor(vehicles.myVehicles[index].color.toColor())
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 1.0) // Ajusta el radio según tu preferencia
+                                            .stroke(Color.black, lineWidth: 0.3) // Color y ancho del borde
+                                    )
+                            })
                         }
 //                        .id(vehicles.myVehicles[index])
                         .listRowBackground(Color.clear)
@@ -89,12 +106,17 @@ struct VehiclesListView: View {
 
 #Preview {
     @State var addVehicleValue: Bool = false
-    let vehicle =  Vehicle(name: "versa 3",
-                           owner: "orlando",
-                           maintenances: [Maintenance(kilometers: 3500,
-                                                      date: Date(),
-                                                      details: "agencia",
-                                                      place: "agencia mazda cuu")])
+    let color = Color.blue
+    let codableColor = CodableColor(color: Color.gray)
+    let vehicle = Vehicle(name: "versa 3",
+                          owner: "orlando",
+                          maintenances: [Maintenance(kilometers: 3500,
+                                                     date: Date(),
+                                                     details: "agencia",
+                                                     place: "agencia mazda cuu")],
+                          yearModel: 2023,
+                          details: "OK",
+                          color: codableColor)
     @State var vehicles = Vehicles()
     vehicles.myVehicles = [vehicle]
     return VehiclesListView(addVehicleValue: $addVehicleValue, vehicles: $vehicles)

@@ -10,14 +10,24 @@ import SwiftUI
 struct AddNewVehicleView: View {
     @State private var ownerNameTf: String = ""
     @State private var carNameTf: String = ""
-    @State private var lastMaintenanceKm = ""
-    @State private var lastMaintenancePlace = ""
     @State private var detailsTf = ""
     @Environment(\.dismiss) var dismiss
     @Binding var vehicles: Vehicles
     @State private var alertisPResented = false
     @FocusState private var texFieldFocused: Bool
     @State var lastMaintenanceDate = Date()
+    @State private var selectedYear: Int = 2023
+    @State private var carColor: Color = .clear
+    let startYear: Int
+    let endYear: Int
+    
+    init(vehicles: Binding<Vehicles>) {
+        self._vehicles = vehicles
+        let currentYear = Calendar.current.component(.year, from: Date())
+        self.startYear = currentYear - 100
+        self.endYear = currentYear + 1
+        self.selectedYear = endYear
+    }
     
     var body: some View {
         VStack {
@@ -44,38 +54,29 @@ struct AddNewVehicleView: View {
                         Spacer()
                     }
                     VStack {
-                        Text("Ultimo mantenimiento (KM)")
+                        Text("Modelo vehiculo (año)")
                             .lineLimit(1)
                             .fixedSize()
                             .font(.title2)
-                        TextField("Kilometraje de ultimo mantenimiento", text: $lastMaintenanceKm)
-                            .keyboardType(.numberPad)
-                            .focused($texFieldFocused)
-                        Spacer()
-                    }
-                    VStack {
-                        Text("Ubicacion ultimo mantenimiento")
-                            .lineLimit(1)
-                            .fixedSize()
-                            .font(.title2)
-                        TextField("Nombre de taller, agencia, etc...", text: $lastMaintenancePlace)
-                            .focused($texFieldFocused)
-                        Spacer()
-                    }
-                    VStack {
-                        Text("Fecha de ultimo mantenimiento")
-                            .lineLimit(1)
-                            .fixedSize()
-                            .font(.title2)
-                        DatePicker("Ingresa una fecha", selection: $lastMaintenanceDate,in: ...Date() ,displayedComponents: .date)
+                        Picker("Año", selection: $selectedYear) {
+                            ForEach(startYear...endYear, id: \.self) { year in
+                                Text(String(format: "%d", year)).tag(year)
+                            }
+                        }
+                        .labelsHidden()
+                        .pickerStyle(WheelPickerStyle())
                         Spacer()
                             .frame(height: 20)
                         Spacer()
+                        ColorPicker("Color de vehiculo",
+                                    selection: $carColor, supportsOpacity: false)
+                        Spacer()
+                            .frame(height: 20)
                         Text("Detalles (opcional):")
                             .lineLimit(1)
                             .fixedSize()
                             .font(.title2)
-                        Text("Costo, tipo de mantenimiento, mecanico en turno, etc...")
+                        Text("Alguna caracteristica adicional del carro, notas, pendientes, etc...")
                             .frame(width: UIScreen.main.bounds.width * 0.73)
                             .foregroundStyle(.gray)
                             .fixedSize()
@@ -101,17 +102,14 @@ struct AddNewVehicleView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Guardar") {
                     if carNameTf != "",
-                       lastMaintenanceKm != "",
-                        ownerNameTf != "",
-                        lastMaintenancePlace != "" {
-                        guard let kilometers = Int(lastMaintenanceKm) else { return }
-                        let maintenance = Maintenance(kilometers: kilometers,
-                                                      date: lastMaintenanceDate,
-                                                      details: detailsTf,
-                                                      place: lastMaintenancePlace)
+                        ownerNameTf != "" {
+                        let codableColor = CodableColor(color: carColor)
                         let vehicle = Vehicle(name: carNameTf,
-                                              owner: ownerNameTf,
-                                              maintenances: [maintenance])
+                                        owner: ownerNameTf,
+                                        maintenances: [],
+                                        yearModel: selectedYear,
+                                        details: detailsTf,
+                                              color: codableColor)
                         self.vehicles.myVehicles.append(vehicle)
                         dismiss()
                     } else {
@@ -132,7 +130,6 @@ struct AddNewVehicleView: View {
                 }
             }
         }
-
     }
 }
 

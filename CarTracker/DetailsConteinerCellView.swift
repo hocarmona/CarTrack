@@ -1,34 +1,25 @@
 //
-//  DetailCellView.swift
+//  DetailsConteinerCellView.swift
 //  CarTracker
 //
-//  Created by Hector Carmona on 5/8/24.
+//  Created by Hector Carmona on 5/13/24.
 //
 
 import SwiftUI
 
-struct DetailCellView: View {
+struct DetailsConteinerCellView: View {
     let typeOfDetailText: String
     @Binding var detailTextField: String
     @Binding var editingDisabled: Bool
     @FocusState private var focusField: Bool
     var body: some View {
         VStack {
-            Text(typeOfDetailText)
-            HStack {
-                TextField("", text: $detailTextField)
-                    .focused($focusField)
-                    .submitLabel(.done)
-                    .onSubmit() {
-                        focusField = false
-                        editingDisabled = true
-                    }
-                    .onDisappear(perform: {
-                        editingDisabled = true
-                    })
-                    .onChange(of: focusField) { oldValue, newValue in
-                        editingDisabled = !newValue
-                    }
+            HStack(spacing: 20, content: {
+                Text(typeOfDetailText)
+                Spacer()
+                Spacer()
+                Spacer()
+                Spacer()
                 if editingDisabled {
                     Image(systemName: "pencil")
                         .foregroundColor(.blue)
@@ -46,7 +37,19 @@ struct DetailCellView: View {
                             focusField = false
                         }
                 }
-            }
+            })
+            TextEditor(text: $detailTextField)
+                .frame(minHeight: 120)
+                .padding()
+                .border(Color.gray, width: 0.5)
+                .submitLabel(.return)
+                .focused($focusField)
+                .onDisappear(perform: {
+                    editingDisabled = true
+                })
+                .onChange(of: focusField) { oldValue, newValue in
+                    editingDisabled = !newValue
+                }
         }
     }
 }
@@ -54,7 +57,7 @@ struct DetailCellView: View {
 #Preview {
     @State var tf = "orlis"
     @State var editingDisabled = true
-    return DetailCellView(typeOfDetailText: "Nombre propietario",
+    return DetailsConteinerCellView(typeOfDetailText: "Nombre propietario",
                           detailTextField: $tf,
                           editingDisabled: $editingDisabled)
 }
