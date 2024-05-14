@@ -112,12 +112,16 @@ struct AddNewMaintenanceView: View {
 }
 
 #Preview {
-    let vehicle =  Vehicle(name: "versa 3",
-                           owner: "orlando",
-                           maintenances: [Maintenance(kilometers: 3500,
-                                                      date: Date(),
-                                                      details: "agencia",
-                                                      place: "agencia mazda cuu")])
+    let color = Color.blue
+    let codableColor = CodableColor(color: Color.gray)
+    let vehicle = Vehicle(name: "versa 3",
+                          owner: "orlando",
+                          maintenances: [Maintenance(kilometers: 3500,
+                                                     date: Date(),
+                                                     details: "agencia",
+                                                     place: "agencia mazda cuu")],
+                          yearModel: 2023,
+                          details: "OK", color: codableColor)
     @State var vehicles = Vehicles()
     vehicles.myVehicles = [vehicle]
     return AddNewMaintenanceView(index: 0, vehicles: $vehicles)
