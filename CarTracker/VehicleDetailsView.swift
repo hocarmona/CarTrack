@@ -16,6 +16,7 @@ struct VehicleDetailsView: View {
     @State var ownerDisabled: Bool = true
     @State var detailsDisabled: Bool = true
     @State var addMaintenance: Bool = false
+    @State var alertisPResented: Bool = false
     var body: some View {
         NavigationView {
             Form {
@@ -62,6 +63,7 @@ struct VehicleDetailsView: View {
                                     Text(place)
                                         .fontWidth(.condensed)
                                         .bold()
+                                        .foregroundStyle(Color.white.opacity(0.8))
                                     Spacer()
                                     Text(maintenance.date, style: .date)
                                         .font(.system(size: 16))
@@ -69,10 +71,10 @@ struct VehicleDetailsView: View {
                                 }
                                 Text("Kilometraje: \(kilometers) km")
                                     .font(.system(size: 16))
-                                    .foregroundStyle(Color.black.opacity(0.6))
+                                    .foregroundStyle(Color.gray.opacity(0.9))
                             })
                         }
-                        .listRowBackground(Color.white)
+//                        .listRowBackground(Color.white)
                     }
                     .onDelete(perform: removeMaintenance)
                     .onAppear {
@@ -96,8 +98,20 @@ struct VehicleDetailsView: View {
             }
         })
         .navigationDestination(for: String.self) { i in
-            Text("maintenance \(i)")
+            if let maintIndex = Int(i) {
+                MaintenanceDetailView(vehicles: $vehicles,
+                                      index: index,
+                                      maintIndex: maintIndex)
+            } else { 
+                Text("Detalles no disponibles")
+            }
         }
+        .alert("Detalles no disponibles", isPresented: $alertisPResented, actions: {
+            Button("Done") {
+                alertisPResented = false
+            }
+        })
+        .preferredColorScheme(.dark)
     }
     func removeMaintenance(at offsets: IndexSet) {
         vehicles.myVehicles[index].maintenances.remove(atOffsets: offsets)
@@ -109,7 +123,7 @@ struct VehicleDetailsView: View {
     let codableColor = CodableColor(color: Color.gray)
     let vehicle = Vehicle(name: "versa 3",
                           owner: "orlando",
-                          maintenances: [Maintenance(kilometers: 3500,
+                          maintenances: [Maintenance(kilometers: "3500",
                                                      date: Date(),
                                                      details: "agencia",
                                                      place: "agencia mazda cuu")],

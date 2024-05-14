@@ -34,7 +34,7 @@ struct ContentView: View {
                 AddNewVehicleView(vehicles: $vehicles)
             }
         })
-
+        .preferredColorScheme(.dark)
     }
     
     func addVehicle() {

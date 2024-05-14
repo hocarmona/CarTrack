@@ -82,8 +82,7 @@ struct AddNewMaintenanceView: View {
                 Button("Guardar") {
                     if maintenanceKm != "",
                         maintenancePlace != "" {
-                        guard let kilometers = Int(maintenanceKm) else { return }
-                        let maintenance = Maintenance(kilometers: kilometers,
+                        let maintenance = Maintenance(kilometers: maintenanceKm,
                                                       date: maintenanceDate,
                                                       details: detailsTf,
                                                       place: maintenancePlace)
@@ -107,7 +106,7 @@ struct AddNewMaintenanceView: View {
                 }
             }
         }
-
+        .preferredColorScheme(.dark)
     }
 }
 
@@ -116,7 +115,7 @@ struct AddNewMaintenanceView: View {
     let codableColor = CodableColor(color: Color.gray)
     let vehicle = Vehicle(name: "versa 3",
                           owner: "orlando",
-                          maintenances: [Maintenance(kilometers: 3500,
+                          maintenances: [Maintenance(kilometers: "3500",
                                                      date: Date(),
                                                      details: "agencia",
                                                      place: "agencia mazda cuu")],
