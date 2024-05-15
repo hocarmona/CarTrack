@@ -52,11 +52,12 @@ struct VehicleDetailsView: View {
                             Spacer()
                         })
                     }
-                    ForEach(vehicles.myVehicles[index].maintenances) { maintenance in
-                        let place = maintenance.place
+                    ForEach(vehicles.myVehicles[index].maintenances.indices, id: \.self) { maintIndex in
+                        let maintenance = vehicles.myVehicles[index].maintenances[maintIndex]
+                        let place =  maintenance.place
                         let kilometers = maintenance.kilometers
                         ZStack {
-                            NavigationLink(value: String(index)) {}
+                            NavigationLink(value: String(maintIndex)) {}
                             .opacity(0)
                             VStack(alignment: .leading, spacing: 5, content: {
                                 HStack {
@@ -94,7 +95,8 @@ struct VehicleDetailsView: View {
         }
         .sheet(isPresented: $addMaintenance, content: {
             NavigationView {
-                AddNewMaintenanceView(index: index, vehicles: $vehicles)
+                AddNewMaintenanceView(index: index,
+                                      vehicles: $vehicles)
             }
         })
         .navigationDestination(for: String.self) { i in

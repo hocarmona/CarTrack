@@ -123,5 +123,6 @@ struct AddNewMaintenanceView: View {
                           details: "OK", color: codableColor)
     @State var vehicles = Vehicles()
     vehicles.myVehicles = [vehicle]
+    @State var refreshView = UUID()
     return AddNewMaintenanceView(index: 0, vehicles: $vehicles)
 }
