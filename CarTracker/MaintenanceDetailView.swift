@@ -48,25 +48,6 @@ struct MaintenanceDetailView: View {
             .navigationTitle("Detalles mantenimiento")
             .navigationBarTitleDisplayMode(.inline)
         }
-        .sheet(isPresented: $addMaintenance, content: {
-            NavigationView {
-                AddNewMaintenanceView(index: index, vehicles: $vehicles)
-            }
-        })
-        .navigationDestination(for: String.self) { i in
-            if let maintIndex = Int(i) {
-                MaintenanceDetailView(vehicles: $vehicles,
-                                      index: index,
-                                      maintIndex: maintIndex)
-            } else {
-                Text("Detalles no disponibles")
-            }
-        }
-        .alert("Detalles no disponibles", isPresented: $alertisPResented, actions: {
-            Button("Done") {
-                alertisPResented = false
-            }
-        })
         .preferredColorScheme(.dark)
     }
 }
